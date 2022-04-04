@@ -2,6 +2,7 @@ import speech_recognition as sr
 import pyttsx3
 import pywhatkit
 import datetime
+import wikipedia
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
@@ -13,7 +14,7 @@ def talk(text):
     engine.say(text)
     engine.runAndWait()
 
-engine.say('Hi I am Cubic')
+engine.say('Hi I am your personal assistant, Cubic')
 engine.say('What can I do for you?')
 engine.runAndWait()
 
@@ -42,5 +43,11 @@ def run_alexa():
         time = datetime.datetime.now().strftime('%I:%M %p')
         print(time)
         talk('Current time is ' + time)
+    elif 'who is' in command:
+        person = command.replace('who is', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        talk(info)
+
 
 run_alexa()
